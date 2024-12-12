@@ -1,14 +1,37 @@
-import pytube
+import yt_dlp
 
-# set video url
-url = "https://www.youtube.com/watch?v=5tW6Yj-E2Wk"
+url = input('Enter video URL: ')
 
-# create Youtube object
-video = pytube.YouTube(url)
+yt_opts = {
+    'format': 'bestaudio/best',  # Downloads the best audio format available
+    'noplaylist': True,  # Avoid downloading playlists
+}
 
-# download video and convert to mp3
-stream = video.streams.filter(only_audio=True).first()
+with yt_dlp.YoutubeDL(yt_opts) as ydl:
+    ydl.download([url])
 
-# download file
-stream.download(filename=f"{video.title}.mp3")
+print('Audio downloaded successfully (in original format).')
+
+
+# import pytube
+
+# try:
+#     # set video url
+#     url = input("Enter your URL: ")
+
+#     # create Youtube object
+#     video = pytube.YouTube(url)
+
+#     # download video and convert to mp3
+#     stream = video.streams.filter(only_audio=True).first()
+#     print("Audio is being downloaded")
+
+#     # download file
+#     stream.download()
+
+#     print("Download complete!")
+
+# except Exception as e:
+#     print(f"An error occurred: {str(e)}")
+
 
